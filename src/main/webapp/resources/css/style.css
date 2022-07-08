@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+body {
+	background-color: #808080;
+}
+
+.flex-container {
+	display: flex;
+	flex-direction: column;
+	max-width: 992px;
+	margin: auto;
+	width: 100%;
+	min-width: 320px;
+	font-family: Arial;
+}
+
+body .ui-messages .ui-messages-error, body .ui-messages .ui-messages-fatal .ui-messages-close
+	{
+	background: #ff261b;
+	border: 1px solid transparent;
+	border-width: 0 0 0 6px;
+	color: #212121;
+}
+
+body .ui-messages .ui-messages-error .ui-messages-close, body .ui-messages .ui-messages-fatal .ui-messages-close
+	{
+	background: #ff261b;
+	color: #212121;
+}
+
+body .ui-messages .ui-messages-error .ui-messages-close:hover, body .ui-messages .ui-messages-fatal .ui-messages-close:hover
+	{
+	background: #ff6961;
+}
+
+.ui-panelgrid {
+	border-collapse: collapse;
+	width: 50%;
+}
+
+.ui-fluid .ui-selectonemenu {
+	max-width: 50%;
+}
+
+.ui-fluid .ui-button {
+	max-width: 20%;
+}
+
+/* Mobile */
+@media ( max-width : 992px) {
+	
+	body .ui-widget {
+		font-size: 2rem;
+	}
+	
+	body .ui-inputfield {
+		font-size: 2rem;
+	}
+	
+	.ui-fluid .ui-button {
+		max-width: 50%;
+	}
+	
+	.ui-fluid .ui-selectonemenu {
+		max-width: 100%;
+	}
+}

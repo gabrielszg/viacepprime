@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+	<h:head>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<h:body>
+
+		<p:graphicImage library="images" name="banner.png"
+			styleClass="flex-container" />
+
+		<h:form id="frm" styleClass="flex-container">
+			<p:messages closable="true" style="width: 50%;" />
+
+
+			<p:panelGrid columns="3" layout="flex" styleClass="ui-fluid"
+				style="padding-top: 10px;">
+				<p:inputMask id="cep" value="#{viaCepController.viaCepInput.cep}"
+					size="20" required="true" requiredMessage="Digite um CEP!"
+					mask="99999999" autoClear="false" immediate="true"
+					placeholder="Digite um CEP" style="text-align: center;" slotChar="" />
+
+				<p:commandButton value="Buscar" icon="pi pi-search"
+					action="#{viaCepController.searchCep}" process="@form"
+					update="frm frm2" />
+			</p:panelGrid>
+		</h:form>
+
+		<p:spacer />
+
+		<h:form id="form" styleClass="flex-container">
+
+			<p:messages closable="true" style="width: 50%;" />
+
+			<p:panelGrid columns="2" layout="flex" styleClass="ui-fluid">
+
+				<p:outputLabel value="UF" />
+				<p:selectOneMenu id="estado" value="#{viaCepController.uf}"
+					required="true" requiredMessage="Selecione um estado">
+					<f:selectItem itemLabel="Selecione um estado" />
+					<f:selectItems value="#{viaCepController.listEstados}" var="siglas"
+						itemValue="#{siglas}" />
+					<p:ajax event="itemSelect"
+						listener="#{viaCepController.searchCity()}" update="cidade" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Cidade" />
+				<p:selectOneMenu id="cidade" value="#{viaCepController.city}"
+					required="true" requiredMessage="Selecione uma cidade">
+					<f:selectItem itemLabel="Selecione uma cidade" />
+					<f:selectItems value="#{viaCepController.listMunicipios}"
+						var="cidade" itemValue="#{cidade.nome}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Logradouro" />
+				<p:inputText value="#{viaCepController.viaCepInput.logr}" />
+
+				<p:commandButton value="Buscar" icon="pi pi-search"
+					action="#{viaCepController.searchCepPorUf}" process="@form"
+					update="form frm3" />
+			</p:panelGrid>
+		</h:form>
+
+		<br />
+
+		<h:form id="frm2" styleClass="flex-container">
+
+			<p:panelGrid columns="2" layout="grid" styleClass="ui-fluid"
+				rendered="#{not empty viaCepController.viaCep.cep}"
+				style="text-align: left;">
+				<p:outputLabel value="CEP:" />
+				<h:outputText value="#{viaCepController.viaCep.cep}" />
+
+				<p:outputLabel value="Logradouro:" />
+				<h:outputText value="#{viaCepController.viaCep.logradouro}" />
+
+				<p:outputLabel value="Complemento:" />
+				<h:outputText value="#{viaCepController.viaCep.complemento}" />
+
+				<p:outputLabel value="Bairro:" />
+				<h:outputText value="#{viaCepController.viaCep.bairro}" />
+
+				<p:outputLabel value="Localidade:" />
+				<h:outputText value="#{viaCepController.viaCep.localidade}" />
+
+				<p:outputLabel value="UF:" />
+				<h:outputText value="#{viaCepController.viaCep.uf}" />
+
+				<p:outputLabel value="IBGE:" />
+				<h:outputText value="#{viaCepController.viaCep.ibge}" />
+
+				<p:outputLabel value="GIA:" />
+				<h:outputText value="#{viaCepController.viaCep.gia}" />
+
+				<p:outputLabel value="DDD:" />
+				<h:outputText value="#{viaCepController.viaCep.ddd}" />
+
+				<p:outputLabel value="SIAFI:" />
+				<h:outputText value="#{viaCepController.viaCep.siafi}" />
+			</p:panelGrid>
+		</h:form>
+
+		<br />
+
+		<h:form id="frm3" styleClass="flex-container">
+
+			<p:dataTable id="table" var="e" value="#{viaCepController.list}"
+				reflow="true" stickyHeader="true" paginator="true"
+				rendered="#{not empty viaCepController.list}"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom" rows="15"
+				style="text-align: center">
+
+				<p:column headerText="CEP" width="80" style="text-align: center">
+					<h:outputText value="#{e.cep}" />
+				</p:column>
+
+				<p:column headerText="Logradouro" width="120"
+					style="text-align: center">
+					<h:outputText value="#{e.logradouro}" />
+				</p:column>
+
+				<p:column headerText="Complemento" width="100"
+					style="text-align: center">
+					<h:outputText value="#{e.complemento}" />
+				</p:column>
+
+				<p:column headerText="Bairro" width="120" style="text-align: center">
+					<h:outputText value="#{e.bairro}" />
+				</p:column>
+
+				<p:column headerText="Localidade" width="120"
+					style="text-align: center">
+					<h:outputText value="#{e.localidade}" />
+				</p:column>
+
+				<p:column headerText="UF" width="20" style="text-align: center">
+					<h:outputText value="#{e.uf}" />
+				</p:column>
+
+				<p:column headerText="IBGE" width="55" style="text-align: center">
+					<h:outputText value="#{e.ibge}" />
+				</p:column>
+
+				<p:column headerText="GIA" style="text-align: center">
+					<h:outputText value="#{e.gia}" />
+				</p:column>
+
+				<p:column headerText="DDD" style="text-align: center">
+					<h:outputText value="#{e.ddd}" />
+				</p:column>
+
+				<p:column headerText="SIAFI" style="text-align: center">
+					<h:outputText value="#{e.siafi}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</h:body>
+</f:view>
+</html>
