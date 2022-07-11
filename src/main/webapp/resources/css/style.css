@@ -62,33 +62,29 @@ body .ui-messages .ui-messages-error .ui-messages-close:hover, body .ui-messages
 		display: flex;
 		flex-direction: column;
 		margin: auto;
-		padding-top: 10px;
+		padding-top: 5px;
 		font-family: Arial;
+		width: 100%;
 	}
 	
 	.ui-panelgrid {
 		border-collapse: collapse;
-		width: 80%;
+		width: 100%;
 	}
 	
 	.msg {
-		width: 80%;
-	}
-	
-	body .ui-widget {
-		font-size: 2rem;
-	}
-	
-	body .ui-inputfield {
-		font-size: 2rem;
+		width: 100%;
 	}
 	
 	.ui-fluid .ui-button {
-		max-width: 50%;
+		max-width: 30%;
 	}
 	
 	.ui-fluid .ui-selectonemenu {
-		max-width: 100%;
+		max-width: 80%;
 	}
-
+	
+	.center {
+		text-align: center;
+	}
 }

@@ -9,6 +9,7 @@
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
 	<h:head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
 	<h:body>
@@ -44,9 +45,9 @@
 
 					<p:panelGrid columns="2" layout="flex" styleClass="ui-fluid">
 
-						<p:outputLabel value="UF" />
+						<p:outputLabel value="UF" style="font-weight: bold;" />
 						<p:selectOneMenu id="estado" value="#{viaCepController.uf}"
-							required="true" requiredMessage="Selecione um estado">
+							required="true" requiredMessage="Selecione um estado" filter="true">
 							<f:selectItem itemLabel="Selecione um estado" />
 							<f:selectItems value="#{viaCepController.listEstados}"
 								var="siglas" itemValue="#{siglas}" />
@@ -54,15 +55,15 @@
 								listener="#{viaCepController.searchCity()}" update="cidade" />
 						</p:selectOneMenu>
 
-						<p:outputLabel value="Cidade" />
+						<p:outputLabel value="Cidade" style="font-weight: bold;" />
 						<p:selectOneMenu id="cidade" value="#{viaCepController.city}"
-							required="true" requiredMessage="Selecione uma cidade">
+							required="true" requiredMessage="Selecione uma cidade" filter="true">
 							<f:selectItem itemLabel="Selecione uma cidade" />
 							<f:selectItems value="#{viaCepController.listMunicipios}"
 								var="cidade" itemValue="#{cidade.nome}" />
 						</p:selectOneMenu>
 
-						<p:outputLabel value="Logradouro" />
+						<p:outputLabel value="Logradouro" style="font-weight: bold;" />
 						<p:inputText value="#{viaCepController.viaCepInput.logr}"
 							required="true" requiredMessage="Digite um logradouro" />
 
@@ -75,37 +76,37 @@
 
 			<h:form id="frm2" styleClass="flex-container panel-cep">
 
-				<p:panelGrid columns="2" layout="grid" styleClass="ui-fluid"
-					rendered="#{not empty viaCepController.viaCep.cep}"
-					style="text-align: left;">
-					<p:outputLabel value="CEP:" />
+				<p:panelGrid columns="2" layout="grid" styleClass="ui-fluid center"
+					rendered="#{not empty viaCepController.viaCep.cep}">
+					
+					<p:outputLabel value="CEP:" style="font-weight: bold;" />
 					<h:outputText value="#{viaCepController.viaCep.cep}" />
 
-					<p:outputLabel value="Logradouro:" />
+					<p:outputLabel value="Logradouro:" style="font-weight: bold;" />
 					<h:outputText value="#{viaCepController.viaCep.logradouro}" />
 
-					<p:outputLabel value="Complemento:" />
+					<p:outputLabel value="Complemento:" style="font-weight: bold;" />
 					<h:outputText value="#{viaCepController.viaCep.complemento}" />
 
-					<p:outputLabel value="Bairro:" />
+					<p:outputLabel value="Bairro:" style="font-weight: bold;" />
 					<h:outputText value="#{viaCepController.viaCep.bairro}" />
 
-					<p:outputLabel value="Localidade:" />
+					<p:outputLabel value="Localidade:" style="font-weight: bold;" />
 					<h:outputText value="#{viaCepController.viaCep.localidade}" />
 
-					<p:outputLabel value="UF:" />
+					<p:outputLabel value="UF:" style="font-weight: bold;" />
 					<h:outputText value="#{viaCepController.viaCep.uf}" />
 
-					<p:outputLabel value="IBGE:" />
+					<p:outputLabel value="IBGE:" style="font-weight: bold;" />
 					<h:outputText value="#{viaCepController.viaCep.ibge}" />
 
-					<p:outputLabel value="GIA:" />
+					<p:outputLabel value="GIA:" style="font-weight: bold;" />
 					<h:outputText value="#{viaCepController.viaCep.gia}" />
 
-					<p:outputLabel value="DDD:" />
+					<p:outputLabel value="DDD:" style="font-weight: bold;" />
 					<h:outputText value="#{viaCepController.viaCep.ddd}" />
 
-					<p:outputLabel value="SIAFI:" />
+					<p:outputLabel value="SIAFI:" style="font-weight: bold;" />
 					<h:outputText value="#{viaCepController.viaCep.siafi}" />
 				</p:panelGrid>
 			</h:form>
@@ -114,12 +115,12 @@
 		<br />
 
 		<h:form id="frm3" styleClass="flex-container">
-
+			
 			<p:dataTable id="table" var="e" value="#{viaCepController.list}"
 				reflow="true" stickyHeader="true" paginator="true"
 				rendered="#{not empty viaCepController.list}"
 				paginatorAlwaysVisible="false" paginatorPosition="bottom" rows="15"
-				style="text-align: center">
+				style="text-align: center;" touchable="true">
 
 				<p:column headerText="CEP" width="80" style="text-align: center">
 					<h:outputText value="#{e.cep}" />
