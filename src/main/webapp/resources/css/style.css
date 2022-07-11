@@ -6,12 +6,21 @@ body {
 
 .flex-container {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	max-width: 992px;
 	margin: auto;
 	width: 100%;
 	min-width: 320px;
 	font-family: Arial;
+}
+
+.panel-cep {
+	margin-left: 240px;
+    margin-bottom: 74px;
+}
+
+.msg {
+	width: 150%;
 }
 
 body .ui-messages .ui-messages-error, body .ui-messages .ui-messages-fatal .ui-messages-close
@@ -35,7 +44,7 @@ body .ui-messages .ui-messages-error .ui-messages-close:hover, body .ui-messages
 
 .ui-panelgrid {
 	border-collapse: collapse;
-	width: 50%;
+	width: 200%;
 }
 
 .ui-fluid .ui-selectonemenu {
@@ -48,6 +57,23 @@ body .ui-messages .ui-messages-error .ui-messages-close:hover, body .ui-messages
 
 /* Mobile */
 @media ( max-width : 992px) {
+	
+	.flex-container {
+		display: flex;
+		flex-direction: column;
+		margin: auto;
+		padding-top: 10px;
+		font-family: Arial;
+	}
+	
+	.ui-panelgrid {
+		border-collapse: collapse;
+		width: 80%;
+	}
+	
+	.msg {
+		width: 80%;
+	}
 	
 	body .ui-widget {
 		font-size: 2rem;
@@ -64,4 +90,5 @@ body .ui-messages .ui-messages-error .ui-messages-close:hover, body .ui-messages
 	.ui-fluid .ui-selectonemenu {
 		max-width: 100%;
 	}
+
 }
