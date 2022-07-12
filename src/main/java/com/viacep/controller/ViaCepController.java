@@ -54,8 +54,7 @@ public class ViaCepController implements Serializable {
 		StringBuffer json = EstadoImpl.connection();
 
 		Gson gson = new Gson();
-		Type type = new TypeToken<List<Estado>>() {
-		}.getType();
+		Type type = new TypeToken<List<Estado>>() {}.getType();
 		listEstados = gson.fromJson(json.toString(), type);
 		listEstados.sort(Comparator.naturalOrder());
 	}
@@ -105,11 +104,12 @@ public class ViaCepController implements Serializable {
 			Gson gson = new Gson();
 			Type type = new TypeToken<List<ViaCep>>() {}.getType();
 			list = gson.fromJson(json.toString(), type);
+			list.sort(Comparator.naturalOrder());
 			
 			if (list.isEmpty()) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Endereço não encontrado", "Aviso"));
 			}
 		} 
 	}
-
+	
 }

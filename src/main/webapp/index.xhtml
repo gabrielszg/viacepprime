@@ -25,6 +25,11 @@
 
 					<p:panelGrid columns="3" layout="flex" styleClass="ui-fluid"
 						style="padding-top: 10px;">
+
+						<p:outputLabel value="Pesquisar Endereço por CEP"
+							style="font-weight: bold; font-style: italic;" />
+						<p:separator style="margin: 0px;" />
+
 						<p:inputMask id="cep" value="#{viaCepController.viaCepInput.cep}"
 							size="20" required="true" requiredMessage="Digite um CEP!"
 							mask="99999999" autoClear="false" immediate="true"
@@ -45,9 +50,14 @@
 
 					<p:panelGrid columns="2" layout="flex" styleClass="ui-fluid">
 
-						<p:outputLabel value="UF" style="font-weight: bold;" />
+						<p:outputLabel value="Pesquisar CEP por Endereço"
+							style="font-weight: bold; font-style: italic;" />
+						<p:separator style="margin: 0px;" />
+
+						<p:outputLabel value="UF" />
 						<p:selectOneMenu id="estado" value="#{viaCepController.uf}"
-							required="true" requiredMessage="Selecione um estado" filter="true">
+							required="true" requiredMessage="Selecione um estado"
+							filter="true">
 							<f:selectItem itemLabel="Selecione um estado" />
 							<f:selectItems value="#{viaCepController.listEstados}"
 								var="siglas" itemValue="#{siglas}" />
@@ -55,15 +65,16 @@
 								listener="#{viaCepController.searchCity()}" update="cidade" />
 						</p:selectOneMenu>
 
-						<p:outputLabel value="Cidade" style="font-weight: bold;" />
+						<p:outputLabel value="Cidade" />
 						<p:selectOneMenu id="cidade" value="#{viaCepController.city}"
-							required="true" requiredMessage="Selecione uma cidade" filter="true">
+							required="true" requiredMessage="Selecione uma cidade"
+							filter="true">
 							<f:selectItem itemLabel="Selecione uma cidade" />
 							<f:selectItems value="#{viaCepController.listMunicipios}"
 								var="cidade" itemValue="#{cidade.nome}" />
 						</p:selectOneMenu>
 
-						<p:outputLabel value="Logradouro" style="font-weight: bold;" />
+						<p:outputLabel value="Logradouro" />
 						<p:inputText value="#{viaCepController.viaCepInput.logr}"
 							required="true" requiredMessage="Digite um logradouro" />
 
@@ -78,7 +89,7 @@
 
 				<p:panelGrid columns="2" layout="grid" styleClass="ui-fluid center"
 					rendered="#{not empty viaCepController.viaCep.cep}">
-					
+
 					<p:outputLabel value="CEP:" style="font-weight: bold;" />
 					<h:outputText value="#{viaCepController.viaCep.cep}" />
 
@@ -115,12 +126,34 @@
 		<br />
 
 		<h:form id="frm3" styleClass="flex-container">
-			
+
 			<p:dataTable id="table" var="e" value="#{viaCepController.list}"
 				reflow="true" stickyHeader="true" paginator="true"
 				rendered="#{not empty viaCepController.list}"
 				paginatorAlwaysVisible="false" paginatorPosition="bottom" rows="15"
-				style="text-align: center;" touchable="true">
+				touchable="true">
+
+				<f:facet name="header">
+					<p:commandButton value="XLS"
+						styleClass="p-mr-2 p-mb-2 ui-button-outlined">
+						<p:dataExporter type="xls" target="table" fileName="enderecos" />
+					</p:commandButton>
+
+					<p:commandButton value="PDF"
+						styleClass="p-mr-2 p-mb-2 ui-button-outlined">
+						<p:dataExporter type="pdf" target="table" fileName="enderecos" />
+					</p:commandButton>
+
+					<p:commandButton value="CSV"
+						styleClass="p-mr-2 p-mb-2 ui-button-outlined">
+						<p:dataExporter type="csv" target="table" fileName="enderecos" />
+					</p:commandButton>
+
+					<p:commandButton value="XML"
+						styleClass="p-mr-2 p-mb-2 ui-button-outlined">
+						<p:dataExporter type="xml" target="table" fileName="enderecos" />
+					</p:commandButton>
+				</f:facet>
 
 				<p:column headerText="CEP" width="80" style="text-align: center">
 					<h:outputText value="#{e.cep}" />
@@ -166,6 +199,19 @@
 				</p:column>
 			</p:dataTable>
 		</h:form>
+
+		<p:separator style="margin-top: 15px;" styleClass="flex-container" />
+
+		<footer style="text-align: center; padding-top: 10px;">
+			<div style="padding-bottom: 5px;">
+				<label>ViaCepPrime by: gabrielszg</label>
+			</div>
+			
+			<div>
+				<a href="https://viacep.com.br/" target="_blank"
+					style="color: #212121;">Visite o site ViaCep.com</a>
+			</div>
+		</footer>
 	</h:body>
 </f:view>
 </html>

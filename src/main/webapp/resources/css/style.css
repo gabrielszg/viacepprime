@@ -16,11 +16,15 @@ body {
 
 .panel-cep {
 	margin-left: 240px;
-    margin-bottom: 74px;
+    margin-top: 10px;
 }
 
 .msg {
 	width: 150%;
+}
+
+.center {
+	text-align: center;
 }
 
 body .ui-messages .ui-messages-error, body .ui-messages .ui-messages-fatal .ui-messages-close
@@ -55,6 +59,13 @@ body .ui-messages .ui-messages-error .ui-messages-close:hover, body .ui-messages
 	max-width: 20%;
 }
 
+body .ui-button.ui-button-outlined {
+    background-color: transparent;
+    color: #007ad9;
+    border: 1px solid;
+    margin-right: 5px;
+}
+
 /* Mobile */
 @media ( max-width : 992px) {
 	
@@ -86,5 +97,19 @@ body .ui-messages .ui-messages-error .ui-messages-close:hover, body .ui-messages
 	
 	.center {
 		text-align: center;
+	}
+	
+	.alignLeft {
+		text-align: left;
+	}
+	
+	.ui-datatable-reflow .ui-datatable-data td[role="gridcell"] .ui-column-title {
+	    padding: 0.4em;
+	    min-width: 30%;
+	    display: block;
+	    margin: -0.4em 1em -0.4em -0.4em;
+	    float: left;
+	    text-align: left;
+	    font-weight: bold;
 	}
 }
