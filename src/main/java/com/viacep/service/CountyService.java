@@ -10,13 +10,13 @@ import java.net.URL;
 import com.viacep.exception.ViaCepException;
 import com.viacep.util.JSONConverter;
 
-public class MunicipioImpl implements Serializable {
+public class CountyService implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	static String id;
 
-	public static String idEstado(String idOther) {
+	public static String idState(String idOther) {
 		id = idOther;
 		return id;
 	}

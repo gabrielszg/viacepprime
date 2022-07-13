@@ -12,9 +12,8 @@ public abstract class ViaCepAbstract implements Serializable {
 	protected static final long serialVersionUID = 1L;
 
 	protected final String WEBSERVICE = "http://viacep.com.br/ws/";
-	protected Integer cep;
-	protected String uf;
+	protected Integer zipCode;
+	protected String federalUnit;
 	protected String city;
-	protected String logr;
-
+	protected String publicPlace;
 }

@@ -5,12 +5,12 @@ import java.io.IOException;
 
 public class JSONConverter {
 
-	public static StringBuffer convertToJson(BufferedReader br) {
+	public static StringBuffer convertToJson(BufferedReader reader) {
 		StringBuffer json = new StringBuffer();
 		String line;
 
 		try {
-			while ((line = br.readLine()) != null) {
+			while ((line = reader.readLine()) != null) {
 				json.append(line);
 			}
 			

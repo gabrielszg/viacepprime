@@ -30,14 +30,14 @@
 							style="font-weight: bold; font-style: italic;" />
 						<p:separator style="margin: 0px;" />
 
-						<p:inputMask id="cep" value="#{viaCepController.viaCepInput.cep}"
+						<p:inputMask id="cep" value="#{viaCepController.viaCepService.zipCode}"
 							size="20" required="true" requiredMessage="Digite um CEP!"
 							mask="99999999" autoClear="false" immediate="true"
 							placeholder="Digite um CEP" style="text-align: center;"
 							slotChar="" />
 
 						<p:commandButton value="Buscar" icon="pi pi-search"
-							action="#{viaCepController.searchCep}" process="@form"
+							action="#{viaCepController.searchZipCode}" process="@form"
 							update="frm frm2" />
 					</p:panelGrid>
 				</h:form>
@@ -55,11 +55,11 @@
 						<p:separator style="margin: 0px;" />
 
 						<p:outputLabel value="UF" />
-						<p:selectOneMenu id="estado" value="#{viaCepController.uf}"
+						<p:selectOneMenu id="estado" value="#{viaCepController.federalUnit}"
 							required="true" requiredMessage="Selecione um estado"
 							filter="true">
 							<f:selectItem itemLabel="Selecione um estado" />
-							<f:selectItems value="#{viaCepController.listEstados}"
+							<f:selectItems value="#{viaCepController.listStates}"
 								var="siglas" itemValue="#{siglas}" />
 							<p:ajax event="itemSelect"
 								listener="#{viaCepController.searchCity()}" update="cidade" />
@@ -70,16 +70,16 @@
 							required="true" requiredMessage="Selecione uma cidade"
 							filter="true">
 							<f:selectItem itemLabel="Selecione uma cidade" />
-							<f:selectItems value="#{viaCepController.listMunicipios}"
+							<f:selectItems value="#{viaCepController.listCounties}"
 								var="cidade" itemValue="#{cidade.nome}" />
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Logradouro" />
-						<p:inputText value="#{viaCepController.viaCepInput.logr}"
+						<p:inputText value="#{viaCepController.viaCepService.publicPlace}"
 							required="true" requiredMessage="Digite um logradouro" />
 
 						<p:commandButton value="Buscar" icon="pi pi-search"
-							action="#{viaCepController.searchCepPorUf}" process="@form"
+							action="#{viaCepController.searchAddress}" process="@form"
 							update="form frm3" />
 					</p:panelGrid>
 				</h:form>
@@ -127,9 +127,9 @@
 
 		<h:form id="frm3" styleClass="flex-container">
 
-			<p:dataTable id="table" var="e" value="#{viaCepController.list}"
+			<p:dataTable id="table" var="e" value="#{viaCepController.listViaCep}"
 				reflow="true" stickyHeader="true" paginator="true"
-				rendered="#{not empty viaCepController.list}"
+				rendered="#{not empty viaCepController.listViaCep}"
 				paginatorAlwaysVisible="false" paginatorPosition="bottom" rows="15"
 				touchable="true">
 

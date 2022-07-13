@@ -11,22 +11,22 @@ import com.viacep.model.ViaCepAbstract;
 import com.viacep.util.JSONConverter;
 import com.viacep.util.URLConverter;
 
-public class ViaCepImpl extends ViaCepAbstract {
+public class ViaCepService extends ViaCepAbstract {
 
 	private static final long serialVersionUID = 1L;
 	
 	// Busca somente pelo CEP 
 	
-	private URL url() {
+	private URL urlZipCode() {
 		try {
-			return new URL(WEBSERVICE + cep + "/json/");
+			return new URL(WEBSERVICE + zipCode + "/json/");
 		} catch (MalformedURLException e) {
 			throw new ViaCepException(e.getMessage());
 		}
 	}
 
-	public StringBuffer connection() {
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(url().openStream(), "UTF-8"))) {
+	public StringBuffer connectionZipCode() {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlZipCode().openStream(), "UTF-8"))) {
 			return JSONConverter.convertToJson(reader);
 		} catch (IOException e) {
 			throw new ViaCepException(e.getMessage());
@@ -35,14 +35,14 @@ public class ViaCepImpl extends ViaCepAbstract {
 
 	// Busca por Estado, Cidade e Logradouro
 
-	private URL url2() {
+	private URL urlAddress() {
 		try {
 			URL urlEncode = new URL(WEBSERVICE 
-					+ uf 
+					+ federalUnit 
 					+ "/" 
 					+ city 
 					+ "/" 
-					+ logr
+					+ publicPlace
 					+ "/json/");
 			return URLConverter.urlConverter(urlEncode);
 		} catch (Exception e) {
@@ -50,9 +50,9 @@ public class ViaCepImpl extends ViaCepAbstract {
 		}
 	}
 
-	public StringBuffer conn() {
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(url2().openStream(), "UTF-8"))) {
-			return JSONConverter.convertToJson(br);
+	public StringBuffer connectionAddress() {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlAddress().openStream(), "UTF-8"))) {
+			return JSONConverter.convertToJson(reader);
 		} catch (IOException e) {
 			throw new ViaCepException(e.getMessage());
 		}

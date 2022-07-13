@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Estado implements Serializable, Comparable<Estado> {
+public class State implements Serializable, Comparable<State> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -20,7 +20,7 @@ public class Estado implements Serializable, Comparable<Estado> {
 	}
 
 	@Override
-	public int compareTo(Estado other) {
+	public int compareTo(State other) {
 		return sigla.compareTo(other.getSigla());
 	}
 

@@ -10,7 +10,7 @@ import java.net.URL;
 import com.viacep.exception.ViaCepException;
 import com.viacep.util.JSONConverter;
 
-public class EstadoImpl implements Serializable{
+public class StateService implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 

@@ -2,7 +2,7 @@ package com.viacep.model;
 
 import java.io.Serializable;
 
-public class Municipio implements Serializable, Comparable<Municipio> {
+public class County implements Serializable, Comparable<County> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,7 +22,7 @@ public class Municipio implements Serializable, Comparable<Municipio> {
 	}
 
 	@Override
-	public int compareTo(Municipio other) {
+	public int compareTo(County other) {
 		return nome.compareTo(other.getNome());
 	}
 
