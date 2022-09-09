@@ -12,6 +12,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.component.export.PDFOptions;
+import org.primefaces.component.export.PDFOrientationType;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.viacep.model.County;
@@ -43,17 +46,21 @@ public class ViaCepController implements Serializable {
 	private String id;
 
 	private ViaCepService viaCepService;
+	
+	private PDFOptions pdfOpt;
+	private Gson gson;
 
 	@PostConstruct
 	public void init() {
+		gson = new Gson();
 		searchFederalUnit();
 		viaCepService = new ViaCepService();
+		customizationOptions();
 	}
 
 	public void searchFederalUnit() {
 		StringBuffer json = StateService.connection();
 
-		Gson gson = new Gson();
 		Type type = new TypeToken<List<State>>() {}.getType();
 		listStates = gson.fromJson(json.toString(), type);
 		listStates.sort(Comparator.naturalOrder());
@@ -72,7 +79,6 @@ public class ViaCepController implements Serializable {
 		CountyService.idState(getId());
 		StringBuffer json = CountyService.connection();
 
-		Gson gson = new Gson();
 		Type type = new TypeToken<List<County>>() {}.getType();
 		listCounties = gson.fromJson(json.toString(), type);
 		listCounties.sort(Comparator.naturalOrder());
@@ -81,7 +87,6 @@ public class ViaCepController implements Serializable {
 	public void searchZipCode() {
 		StringBuffer json = viaCepService.connectionZipCode();
 
-		Gson gson = new Gson();
 		viaCep = gson.fromJson(json.toString(), ViaCep.class);
 
 		if (viaCep.getCep() == null) {
@@ -100,7 +105,6 @@ public class ViaCepController implements Serializable {
 		} else {
 			StringBuffer json = viaCepService.connectionAddress();
 
-			Gson gson = new Gson();
 			Type type = new TypeToken<List<ViaCep>>() {}.getType();
 			listViaCep = gson.fromJson(json.toString(), type);
 			listViaCep.sort(Comparator.naturalOrder());
@@ -109,6 +113,15 @@ public class ViaCepController implements Serializable {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Endereço não encontrado", "Aviso"));
 			}
 		} 
+	}
+	
+	public void customizationOptions() {
+		pdfOpt = new PDFOptions();
+		pdfOpt.setFacetBgColor("#C0C0C0");
+		pdfOpt.setFacetFontStyle("BOLD");
+		pdfOpt.setCellFontStyle("12");
+		pdfOpt.setFontName("Arial");
+		pdfOpt.setOrientation(PDFOrientationType.LANDSCAPE);
 	}
 	
 }

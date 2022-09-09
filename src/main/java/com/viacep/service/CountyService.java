@@ -15,6 +15,7 @@ public class CountyService implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	static String id;
+	private static final String WEBSERVICE = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/";
 
 	public static String idState(String idOther) {
 		id = idOther;
@@ -23,7 +24,7 @@ public class CountyService implements Serializable {
 
 	private static URL url() {
 		try {
-			return new URL("https://servicodados.ibge.gov.br/api/v1/localidades/estados/" + id + "/municipios");
+			return new URL(WEBSERVICE + id + "/municipios");
 		} catch (MalformedURLException e) {
 			throw new ViaCepException(e.getMessage());
 		}
@@ -36,4 +37,5 @@ public class CountyService implements Serializable {
 			throw new ViaCepException(e.getMessage());
 		}
 	}
+	
 }

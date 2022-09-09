@@ -131,7 +131,7 @@
 				reflow="true" stickyHeader="true" paginator="true"
 				rendered="#{not empty viaCepController.listViaCep}"
 				paginatorAlwaysVisible="false" paginatorPosition="bottom" rows="15"
-				touchable="true">
+				touchable="true" styleClass="p-mt-2">
 
 				<f:facet name="header">
 					<p:commandButton value="XLS"
@@ -141,7 +141,7 @@
 
 					<p:commandButton value="PDF"
 						styleClass="p-mr-2 p-mb-2 ui-button-outlined">
-						<p:dataExporter type="pdf" target="table" fileName="enderecos" />
+						<p:dataExporter type="pdf" target="table" fileName="enderecos" options="#{viaCepController.pdfOpt}"/>
 					</p:commandButton>
 
 					<p:commandButton value="CSV"

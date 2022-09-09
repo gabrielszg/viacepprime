@@ -2,19 +2,16 @@ package com.viacep.model;
 
 import java.io.Serializable;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class County implements Serializable, Comparable<County> {
 
 	private static final long serialVersionUID = 1L;
 
 	private String nome;
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 
 	@Override
 	public String toString() {

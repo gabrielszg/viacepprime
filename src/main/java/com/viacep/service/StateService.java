@@ -13,10 +13,12 @@ import com.viacep.util.JSONConverter;
 public class StateService implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
+	private final static String WEBSERVICE = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
 
 	private static URL url() {
 		try {
-			return new URL("https://servicodados.ibge.gov.br/api/v1/localidades/estados");
+			return new URL(WEBSERVICE);
 		} catch (MalformedURLException e) {
 			throw new ViaCepException(e.getMessage());
 		}
