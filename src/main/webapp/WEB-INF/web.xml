@@ -24,8 +24,8 @@
 	</resource-env-ref>
 	
 	<error-page>
-		<error-code>404</error-code>
-		<location>/main/webapp/error.xhtml</location>
+		<error-code>500</error-code>
+		<location>/error.xhtml</location>
 	</error-page>
 
 	<!-- Configuracao JSF -->

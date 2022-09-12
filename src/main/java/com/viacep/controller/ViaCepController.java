@@ -60,7 +60,7 @@ public class ViaCepController implements Serializable {
 
 	public void searchFederalUnit() {
 		StringBuffer json = StateService.connection();
-
+		
 		Type type = new TypeToken<List<State>>() {}.getType();
 		listStates = gson.fromJson(json.toString(), type);
 		listStates.sort(Comparator.naturalOrder());
