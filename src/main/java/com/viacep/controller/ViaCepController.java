@@ -74,7 +74,7 @@ public class ViaCepController implements Serializable {
 		}
 		return id;
 	}
-
+	
 	public void searchCity() {
 		CountyService.idState(getId());
 		StringBuffer json = CountyService.connection();
