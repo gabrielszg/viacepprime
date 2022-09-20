@@ -7,8 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -23,6 +21,7 @@ import com.viacep.model.ViaCep;
 import com.viacep.service.CountyService;
 import com.viacep.service.StateService;
 import com.viacep.service.ViaCepService;
+import com.viacep.util.jsf.FacesUtil;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -49,6 +48,7 @@ public class ViaCepController implements Serializable {
 	
 	private PDFOptions pdfOpt;
 	private Gson gson;
+	private StringBuffer json;
 
 	@PostConstruct
 	public void init() {
@@ -59,7 +59,7 @@ public class ViaCepController implements Serializable {
 	}
 
 	public void searchFederalUnit() {
-		StringBuffer json = StateService.connection();
+		json = StateService.connection();
 		
 		Type type = new TypeToken<List<State>>() {}.getType();
 		listStates = gson.fromJson(json.toString(), type);
@@ -67,17 +67,17 @@ public class ViaCepController implements Serializable {
 	}
 
 	public String getId() {
-		for (State es : listStates) {
-			if (es.getSigla().contains(federalUnit)) {
-				id = es.getId();
-			}
-		}
+		listStates.stream()
+			.filter(e -> e.getSigla().contains(federalUnit))
+			.forEach(x -> {
+				id = x.getSigla();
+			});
 		return id;
 	}
 	
 	public void searchCity() {
 		CountyService.idState(getId());
-		StringBuffer json = CountyService.connection();
+		json = CountyService.connection();
 
 		Type type = new TypeToken<List<County>>() {}.getType();
 		listCounties = gson.fromJson(json.toString(), type);
@@ -85,13 +85,12 @@ public class ViaCepController implements Serializable {
 	}
 
 	public void searchZipCode() {
-		StringBuffer json = viaCepService.connectionZipCode();
+		json = viaCepService.connectionZipCode();
 
 		viaCep = gson.fromJson(json.toString(), ViaCep.class);
 
 		if (viaCep.getCep() == null) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "CEP Inválido!", "Erro"));
+			FacesUtil.addErrorMesssage("CEP Inválido!");
 		}
 	}
 
@@ -100,17 +99,16 @@ public class ViaCepController implements Serializable {
 		viaCepService.setCity(city);
 		
 		if (viaCepService.getPublicPlace().length() < 3) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Logradouro deve conter ao menos três caracteres", "Erro"));
+			FacesUtil.addWarnMesssage("Logradouro deve conter ao menos três caracteres");
 		} else {
-			StringBuffer json = viaCepService.connectionAddress();
+			json = viaCepService.connectionAddress();
 
 			Type type = new TypeToken<List<ViaCep>>() {}.getType();
 			listViaCep = gson.fromJson(json.toString(), type);
 			listViaCep.sort(Comparator.naturalOrder());
 			
 			if (listViaCep.isEmpty()) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Endereço não encontrado", "Aviso"));
+				FacesUtil.addErrorMesssage("Endereço não encontrado");
 			}
 		} 
 	}
