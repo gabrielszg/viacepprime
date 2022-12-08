@@ -11,6 +11,8 @@
 	</properties>
 
 	<build>
+		<finalName>ViaCepPrime</finalName>
+	
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
