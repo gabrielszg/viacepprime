@@ -7,6 +7,11 @@
 - Lombok;
 - Tomcat v8.5;
 
+Url:
+```
+http://localhost:8383/ViaCepPrime/
+```
+
 ## Como executar o projeto com Docker:
 
 Abra o terminal na raiz do projeto. Execute o comando:
