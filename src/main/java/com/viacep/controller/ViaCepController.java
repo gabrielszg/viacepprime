@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.component.export.PDFOptions;
@@ -18,9 +19,9 @@ import com.google.gson.reflect.TypeToken;
 import com.viacep.model.County;
 import com.viacep.model.State;
 import com.viacep.model.ViaCep;
-import com.viacep.service.CountyService;
-import com.viacep.service.StateService;
 import com.viacep.service.ViaCepService;
+import com.viacep.service.ibge.CountyService;
+import com.viacep.service.ibge.StateService;
 import com.viacep.util.jsf.FacesUtil;
 
 import lombok.Getter;
@@ -28,27 +29,33 @@ import lombok.Setter;
 
 @Named
 @ViewScoped
-@Getter
-@Setter
 public class ViaCepController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private ViaCep viaCep;
-	private List<ViaCep> listViaCep;
-
-	private List<State> listStates = new ArrayList<>();
-	private String federalUnit;
-
-	private List<County> listCounties;
-	private String city;
-	private String id;
-
+	@Getter @Setter private ViaCep viaCep;
+	@Getter @Setter private String federalUnit;
+	@Getter @Setter private String city;
+	@Setter private String id;
+	@Getter @Setter private Integer zipCode;
+	@Getter @Setter private String publicPlace;
+	
+	@Getter private List<ViaCep> listViaCep;
+	@Getter private List<State> listStates = new ArrayList<>();
+	@Getter private List<County> listCounties;
+	
+	@Inject
 	private ViaCepService viaCepService;
 	
-	private PDFOptions pdfOpt;
-	private Gson gson;
-	private StringBuffer json;
+	@Inject
+	private StateService stateService;
+	
+	@Inject
+	private CountyService countyService;
+	
+	@Getter @Setter private PDFOptions pdfOpt;
+	@Getter @Setter private Gson gson;
+	@Getter @Setter private StringBuffer json;
 
 	@PostConstruct
 	public void init() {
@@ -59,7 +66,7 @@ public class ViaCepController implements Serializable {
 	}
 
 	public void searchFederalUnit() {
-		json = StateService.connection();
+		json = stateService.reader();
 		
 		Type type = new TypeToken<List<State>>() {}.getType();
 		listStates = gson.fromJson(json.toString(), type);
@@ -77,7 +84,7 @@ public class ViaCepController implements Serializable {
 	
 	public void searchCity() {
 		CountyService.idState(getId());
-		json = CountyService.connection();
+		json = countyService.reader();
 
 		Type type = new TypeToken<List<County>>() {}.getType();
 		listCounties = gson.fromJson(json.toString(), type);
@@ -85,7 +92,8 @@ public class ViaCepController implements Serializable {
 	}
 
 	public void searchZipCode() {
-		json = viaCepService.connectionZipCode();
+		viaCepService.setZipCode(zipCode);
+		json = viaCepService.readerZipCode();
 
 		viaCep = gson.fromJson(json.toString(), ViaCep.class);
 
@@ -97,11 +105,12 @@ public class ViaCepController implements Serializable {
 	public void searchAddress() throws Exception {
 		viaCepService.setFederalUnit(federalUnit);
 		viaCepService.setCity(city);
+		viaCepService.setPublicPlace(publicPlace);
 		
 		if (viaCepService.getPublicPlace().length() < 3) {
 			FacesUtil.addWarnMesssage("Logradouro deve conter ao menos três caracteres");
 		} else {
-			json = viaCepService.connectionAddress();
+			json = viaCepService.readerAddress();
 
 			Type type = new TypeToken<List<ViaCep>>() {}.getType();
 			listViaCep = gson.fromJson(json.toString(), type);

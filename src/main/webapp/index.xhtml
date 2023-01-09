@@ -30,7 +30,7 @@
 							style="font-weight: bold; font-style: italic;" />
 						<p:separator style="margin: 0px;" />
 
-						<p:inputMask id="cep" value="#{viaCepController.viaCepService.zipCode}"
+						<p:inputMask id="cep" value="#{viaCepController.zipCode}"
 							size="20" required="true" requiredMessage="Digite um CEP!"
 							mask="99999999" autoClear="false" immediate="true"
 							placeholder="Digite um CEP" style="text-align: center;"
@@ -75,7 +75,7 @@
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Logradouro" />
-						<p:inputText value="#{viaCepController.viaCepService.publicPlace}"
+						<p:inputText value="#{viaCepController.publicPlace}"
 							required="true" requiredMessage="Digite um logradouro" />
 
 						<p:commandButton value="Buscar" icon="pi pi-search"
