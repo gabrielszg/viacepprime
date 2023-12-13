@@ -11,6 +11,9 @@ import com.viacep.model.ViaCepAbstract;
 import com.viacep.util.JSONConverter;
 import com.viacep.util.URLConverter;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class ViaCepService extends ViaCepAbstract implements ConnectionViaCep {
 
 	private static final long serialVersionUID = 1L;
