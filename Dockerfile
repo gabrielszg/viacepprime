@@ -1,4 +1,4 @@
-FROM maven:3.9.6-eclipse-temurin-17 as builder
+FROM  maven:3.8-jdk-17 as builder
 COPY . /usr/src/mymaven
 WORKDIR /usr/src/mymaven
 RUN mvn clean install -f /usr/src/mymaven && mkdir /usr/src/wars/
