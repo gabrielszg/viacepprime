@@ -1,11 +1,12 @@
 # ViaCepPrime
 #### Aplicação Web para consumo da API ViaCep.
 ## Tecnologias utilizadas: 
-- JavaEE 8;
-- JSF 2.2;
-- Primefaces 11;
+- JakartaEE 10;
+- JDK 17;
+- Jakarta Faces(JSF) 4.0;
+- Primefaces 13;
 - Lombok;
-- Tomcat v8.5;
+- WildFly 30.0.0 Final;
 
 Url:
 ```
