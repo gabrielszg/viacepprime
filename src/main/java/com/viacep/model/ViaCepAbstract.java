@@ -13,8 +13,7 @@ public abstract class ViaCepAbstract implements Serializable {
 
 	protected static final long serialVersionUID = 1L;
 	
-	protected final String WEBSERVICE = PropertiesReader.getProperties().getProperty("viacep");
-//	protected final String WEBSERVICE = "http://viacep.com.br/ws/";
+	protected final String WEBSERVICE = PropertiesReader.getProperties().getProperty("webservice.viacep");
 	protected Integer zipCode;
 	protected String federalUnit;
 	protected String city;
