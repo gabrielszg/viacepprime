@@ -15,6 +15,18 @@ body {
 	font-family: Arial;
 }
 
+.header-text-color {
+	background-color: #5dd55d !important;
+}
+
+.ui-datatable thead th + .table-header-color-green {
+	background-color: #5dd55d !important;
+	background-image: none !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
+	text-align: center;
+}
+
 .panel-cep {
 	margin-left: 250px;
     margin-top: 10px;
