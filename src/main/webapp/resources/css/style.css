@@ -8,7 +8,7 @@ body {
 .flex-container {
 	display: flex;
 	flex-direction: row;
-	max-width: 992px;
+	max-width: 1024px;
 	margin: auto;
 	width: 100%;
 	min-width: 320px;
