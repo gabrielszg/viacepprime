@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.viacep.configs.PropertiesReader;
 import com.viacep.exception.ViaCepException;
 import com.viacep.util.JSONConverter;
 
@@ -14,7 +15,7 @@ public class StateService implements Serializable, ConnectionIbge {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private final static String WEBSERVICE = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
+	private final static String WEBSERVICE = PropertiesReader.getProperties().getProperty("webservice.ibge");
 	
 	@Override
 	public URL connection() {

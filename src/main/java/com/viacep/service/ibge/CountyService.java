@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.viacep.configs.PropertiesReader;
 import com.viacep.exception.ViaCepException;
 import com.viacep.util.JSONConverter;
 
@@ -15,7 +16,7 @@ public class CountyService implements Serializable, ConnectionIbge {
 	private static final long serialVersionUID = 1L;
 
 	static String id;
-	private static final String WEBSERVICE = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/";
+	private static final String WEBSERVICE = PropertiesReader.getProperties().getProperty("webservice.ibge");
 
 	public static String idState(String idOther) {
 		id = idOther;
