@@ -36,7 +36,7 @@ public class ViaCepController implements Serializable {
 	@Getter @Setter private String federalUnit;
 	@Getter @Setter private String city;
 	@Setter private String id;
-	@Getter @Setter private Integer zipCode;
+	@Getter @Setter private String zipCode;
 	@Getter @Setter private String publicPlace;
 	
 	@Getter private List<ViaCep> listViaCep;
