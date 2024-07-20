@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.viacep.model.County;
 import com.viacep.model.State;
-import com.viacep.model.ViaCep;
+import com.viacep.model.ViaCepModel;
 import com.viacep.service.ViaCepService;
 import com.viacep.service.ibge.CountyService;
 import com.viacep.service.ibge.StateService;
@@ -31,13 +31,13 @@ public class ViaCepController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Getter @Setter private ViaCep viaCep;
+	@Getter @Setter private ViaCepModel viaCep;
 	@Getter @Setter private String federalUnit;
 	@Getter @Setter private String city;
 	@Getter @Setter private String zipCode;
 	@Getter @Setter private String publicPlace;
 	
-	@Getter private List<ViaCep> listViaCep;
+	@Getter private List<ViaCepModel> listViaCep;
 	@Getter private List<State> listStates;
 	@Getter private List<County> listCounties;
 	
@@ -58,7 +58,6 @@ public class ViaCepController implements Serializable {
 	public void init() {
 		gson = new Gson();
 		searchFederalUnit();
-		viaCepService = new ViaCepService();
 		customizationOptions();
 	}
 
@@ -80,28 +79,18 @@ public class ViaCepController implements Serializable {
 	}
 	
 	public void searchZipCode() {
-		viaCepService.setZipCode(zipCode);
-		json = viaCepService.readerZipCode();
-
-		viaCep = gson.fromJson(json.toString(), ViaCep.class);
+		viaCep = viaCepService.findByZipCode(zipCode);
 
 		if (viaCep.getCep() == null) {
 			FacesUtil.addErrorMesssage("CEP Inválido!");
 		}
 	}
-
-	public void searchAddress() throws Exception {
-		viaCepService.setFederalUnit(federalUnit);
-		viaCepService.setCity(city);
-		viaCepService.setPublicPlace(publicPlace);
-		
-		if (viaCepService.getPublicPlace().length() < 3) {
+	
+	public void searchAddress() {
+		if (publicPlace.length() < 3) {
 			FacesUtil.addWarnMesssage("Logradouro deve conter ao menos três caracteres");
 		} else {
-			json = viaCepService.readerAddress();
-
-			Type type = new TypeToken<List<ViaCep>>() {}.getType();
-			listViaCep = gson.fromJson(json.toString(), type);
+			listViaCep = viaCepService.findByAddress(federalUnit, city, publicPlace);
 			listViaCep.sort(Comparator.naturalOrder());
 			
 			if (listViaCep.isEmpty()) {
@@ -109,7 +98,7 @@ public class ViaCepController implements Serializable {
 			}
 		} 
 	}
-	
+
 	public void customizationOptions() {
 		pdfOpt = new PDFOptions();
 		pdfOpt.setFacetBgColor("#C0C0C0");

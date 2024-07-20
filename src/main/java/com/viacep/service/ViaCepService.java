@@ -1,65 +1,25 @@
 package com.viacep.service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.io.Serializable;
+import java.util.List;
 
-import com.viacep.exception.ViaCepException;
-import com.viacep.model.ViaCepAbstract;
-import com.viacep.util.JSONConverter;
-import com.viacep.util.URLConverter;
+import com.viacep.model.ViaCepModel;
 
-import lombok.AllArgsConstructor;
+import jakarta.inject.Inject;
 
-@AllArgsConstructor
-public class ViaCepService extends ViaCepAbstract implements ConnectionViaCep {
+public class ViaCepService implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Override
-	public URL zipCodeConnection() {
-		try {
-			return new URL(WEBSERVICE + zipCode + "/json/");
-		} catch (MalformedURLException e) {
-			throw new ViaCepException(e.getMessage());
-		}
+	@Inject
+	private ViaCep viaCep;
+	
+	public ViaCepModel findByZipCode(String zipCode) {
+		return viaCep.findByZipCode(zipCode);
 	}
-
-	@Override
-	public URL connectionAddress() {
-		try {
-			URL urlEncode = new URL(WEBSERVICE 
-					+ federalUnit 
-					+ "/" 
-					+ city 
-					+ "/" 
-					+ publicPlace
-					+ "/json/");
-			return URLConverter.urlConverter(urlEncode);
-		} catch (Exception e) {
-			throw new ViaCepException(e.getMessage());
-		}
-	}
-
-	@Override
-	public StringBuffer readerZipCode() {
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(zipCodeConnection().openStream(), StandardCharsets.UTF_8))) {
-			return JSONConverter.convertToJson(reader);
-		} catch (IOException e) {
-			throw new ViaCepException(e.getMessage());
-		}
-	}
-
-	@Override
-	public StringBuffer readerAddress() {
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(connectionAddress().openStream(), StandardCharsets.UTF_8))) {
-			return JSONConverter.convertToJson(reader);
-		} catch (IOException e) {
-			throw new ViaCepException(e.getMessage());
-		}
+	
+	public List<ViaCepModel> findByAddress(String federalUnit, String city, String publicPlace) {
+		return viaCep.findByAddress(federalUnit, city, publicPlace);
 	}
 	
 }

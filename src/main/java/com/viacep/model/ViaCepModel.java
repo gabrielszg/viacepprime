@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ViaCep implements Serializable, Comparable<ViaCep> {
+public class ViaCepModel implements Serializable, Comparable<ViaCepModel> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,7 @@ public class ViaCep implements Serializable, Comparable<ViaCep> {
 	private String siafi;
 	
 	@Override
-	public int compareTo(ViaCep other) {
+	public int compareTo(ViaCepModel other) {
 		return cep.compareTo(other.getCep());
 	}
 
