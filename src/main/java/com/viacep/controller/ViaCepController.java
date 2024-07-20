@@ -2,7 +2,6 @@ package com.viacep.controller;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -35,12 +34,11 @@ public class ViaCepController implements Serializable {
 	@Getter @Setter private ViaCep viaCep;
 	@Getter @Setter private String federalUnit;
 	@Getter @Setter private String city;
-	@Setter private String id;
 	@Getter @Setter private String zipCode;
 	@Getter @Setter private String publicPlace;
 	
 	@Getter private List<ViaCep> listViaCep;
-	@Getter private List<State> listStates = new ArrayList<>();
+	@Getter private List<State> listStates;
 	@Getter private List<County> listCounties;
 	
 	@Inject
@@ -72,24 +70,15 @@ public class ViaCepController implements Serializable {
 		listStates.sort(Comparator.naturalOrder());
 	}
 
-	public String getId() {
-		listStates.stream()
-			.filter(e -> e.getSigla().contains(federalUnit))
-			.forEach(x -> {
-				id = x.getSigla();
-			});
-		return id;
-	}
-	
 	public void searchCity() {
-		CountyService.idState(getId());
+		CountyService.setFederalUnit(federalUnit);
 		json = countyService.reader();
 
 		Type type = new TypeToken<List<County>>() {}.getType();
 		listCounties = gson.fromJson(json.toString(), type);
 		listCounties.sort(Comparator.naturalOrder());
 	}
-
+	
 	public void searchZipCode() {
 		viaCepService.setZipCode(zipCode);
 		json = viaCepService.readerZipCode();

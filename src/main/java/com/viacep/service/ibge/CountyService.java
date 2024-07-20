@@ -16,18 +16,17 @@ public class CountyService implements Serializable, ConnectionIbge {
 
 	private static final long serialVersionUID = 1L;
 
-	static String id;
+	static String federalUnit;
 	private static final String WEBSERVICE = PropertiesReader.getProperties().getProperty("webservice.ibge");
 
-	public static String idState(String idOther) {
-		id = idOther;
-		return id;
+	public static void setFederalUnit(String federalUnitSelected) {
+		federalUnit = federalUnitSelected;
 	}
 
 	@Override
 	public URL connection() {
 		try {
-			return new URL(WEBSERVICE + id + "/municipios");
+			return new URL(WEBSERVICE + federalUnit + "/municipios");
 		} catch (MalformedURLException e) {
 			throw new ViaCepException(e.getMessage());
 		}
