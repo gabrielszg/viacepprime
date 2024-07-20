@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import com.viacep.configs.PropertiesReader;
 import com.viacep.exception.ViaCepException;
@@ -34,7 +35,7 @@ public class CountyService implements Serializable, ConnectionIbge {
 
 	@Override
 	public StringBuffer reader() {
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection().openStream(), "UTF-8"))) {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection().openStream(), StandardCharsets.UTF_8))) {
 			return JSONConverter.convertToJson(reader);
 		} catch (IOException e) {
 			throw new ViaCepException(e.getMessage());

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import com.viacep.exception.ViaCepException;
 import com.viacep.model.ViaCepAbstract;
@@ -45,7 +46,7 @@ public class ViaCepService extends ViaCepAbstract implements ConnectionViaCep {
 
 	@Override
 	public StringBuffer readerZipCode() {
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(zipCodeConnection().openStream(), "UTF-8"))) {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(zipCodeConnection().openStream(), StandardCharsets.UTF_8))) {
 			return JSONConverter.convertToJson(reader);
 		} catch (IOException e) {
 			throw new ViaCepException(e.getMessage());
@@ -54,7 +55,7 @@ public class ViaCepService extends ViaCepAbstract implements ConnectionViaCep {
 
 	@Override
 	public StringBuffer readerAddress() {
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(connectionAddress().openStream(), "UTF-8"))) {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(connectionAddress().openStream(), StandardCharsets.UTF_8))) {
 			return JSONConverter.convertToJson(reader);
 		} catch (IOException e) {
 			throw new ViaCepException(e.getMessage());

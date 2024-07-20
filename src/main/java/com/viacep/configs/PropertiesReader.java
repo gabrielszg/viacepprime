@@ -19,11 +19,9 @@ public class PropertiesReader {
 	}
 	
 	private static InputStream getInputStream() {
-		InputStream inputStream = PropertiesReader
+		return PropertiesReader
 				.class
 				.getClassLoader()
 				.getResourceAsStream("application.properties");
-		
-		return inputStream;
 	}
 }
