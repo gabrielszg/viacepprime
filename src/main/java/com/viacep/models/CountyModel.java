@@ -1,13 +1,15 @@
-package com.viacep.model;
+package com.viacep.models;
 
 import java.io.Serializable;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class County implements Serializable, Comparable<County> {
+@EqualsAndHashCode
+public class CountyModel implements Serializable, Comparable<CountyModel> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,7 +21,7 @@ public class County implements Serializable, Comparable<County> {
 	}
 
 	@Override
-	public int compareTo(County other) {
+	public int compareTo(CountyModel other) {
 		return nome.compareTo(other.getNome());
 	}
 

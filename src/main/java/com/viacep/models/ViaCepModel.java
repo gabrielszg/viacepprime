@@ -1,12 +1,14 @@
-package com.viacep.model;
+package com.viacep.models;
 
 import java.io.Serializable;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class ViaCepModel implements Serializable, Comparable<ViaCepModel> {
 
 	private static final long serialVersionUID = 1L;

@@ -1,11 +1,11 @@
-package com.viacep.service.impl;
+package com.viacep.services.impl;
 
 import java.io.Serializable;
 import java.util.List;
 
 import com.viacep.configs.PropertiesReader;
-import com.viacep.model.ViaCepModel;
-import com.viacep.service.ViaCep;
+import com.viacep.models.ViaCepModel;
+import com.viacep.services.ViaCep;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;

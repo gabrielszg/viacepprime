@@ -1,8 +1,8 @@
-package com.viacep.service;
+package com.viacep.services;
 
 import java.util.List;
 
-import com.viacep.model.ViaCepModel;
+import com.viacep.models.ViaCepModel;
 
 public interface ViaCep {
 	

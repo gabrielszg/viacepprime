@@ -28,9 +28,7 @@ public class WebSecurityConfig {
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(authorize -> {
-			authorize.anyRequest().authenticated();
-		})
+		http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
 		.csrf(csrf -> {
 			try {
 				csrf.disable().httpBasic(Customizer.withDefaults());

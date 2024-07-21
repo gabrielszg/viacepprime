@@ -1,9 +1,9 @@
-package com.viacep.service;
+package com.viacep.services;
 
 import java.io.Serializable;
 import java.util.List;
 
-import com.viacep.model.ViaCepModel;
+import com.viacep.models.ViaCepModel;
 
 import jakarta.inject.Inject;
 

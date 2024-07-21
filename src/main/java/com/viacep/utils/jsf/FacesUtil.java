@@ -1,4 +1,4 @@
-package com.viacep.util.jsf;
+package com.viacep.utils.jsf;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;

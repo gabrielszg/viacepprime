@@ -1,13 +1,15 @@
-package com.viacep.model;
+package com.viacep.models;
 
 import java.io.Serializable;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class State implements Serializable, Comparable<State> {
+@EqualsAndHashCode
+public class StateModel implements Serializable, Comparable<StateModel> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -20,7 +22,7 @@ public class State implements Serializable, Comparable<State> {
 	}
 
 	@Override
-	public int compareTo(State other) {
+	public int compareTo(StateModel other) {
 		return sigla.compareTo(other.getSigla());
 	}
 

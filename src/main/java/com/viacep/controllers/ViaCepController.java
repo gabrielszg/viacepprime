@@ -1,22 +1,19 @@
-package com.viacep.controller;
+package com.viacep.controllers;
 
 import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.util.Comparator;
 import java.util.List;
 
 import org.primefaces.component.export.PDFOptions;
 import org.primefaces.component.export.PDFOrientationType;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.viacep.model.County;
-import com.viacep.model.State;
-import com.viacep.model.ViaCepModel;
-import com.viacep.service.ViaCepService;
-import com.viacep.service.ibge.CountyService;
-import com.viacep.service.ibge.StateService;
-import com.viacep.util.jsf.FacesUtil;
+import com.viacep.models.CountyModel;
+import com.viacep.models.StateModel;
+import com.viacep.models.ViaCepModel;
+import com.viacep.services.ViaCepService;
+import com.viacep.services.ibge.CountyService;
+import com.viacep.services.ibge.StateService;
+import com.viacep.utils.jsf.FacesUtil;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
@@ -38,8 +35,8 @@ public class ViaCepController implements Serializable {
 	@Getter @Setter private String publicPlace;
 	
 	@Getter private List<ViaCepModel> listViaCep;
-	@Getter private List<State> listStates;
-	@Getter private List<County> listCounties;
+	@Getter private List<StateModel> listStates;
+	@Getter private List<CountyModel> listCounties;
 	
 	@Inject
 	private ViaCepService viaCepService;
@@ -51,30 +48,20 @@ public class ViaCepController implements Serializable {
 	private CountyService countyService;
 	
 	@Getter @Setter private PDFOptions pdfOpt;
-	@Getter @Setter private Gson gson;
-	@Getter @Setter private StringBuffer json;
 
 	@PostConstruct
 	public void init() {
-		gson = new Gson();
 		searchFederalUnit();
 		customizationOptions();
 	}
 
 	public void searchFederalUnit() {
-		json = stateService.reader();
-		
-		Type type = new TypeToken<List<State>>() {}.getType();
-		listStates = gson.fromJson(json.toString(), type);
+		listStates = stateService.findAllStates();
 		listStates.sort(Comparator.naturalOrder());
 	}
 
 	public void searchCity() {
-		CountyService.setFederalUnit(federalUnit);
-		json = countyService.reader();
-
-		Type type = new TypeToken<List<County>>() {}.getType();
-		listCounties = gson.fromJson(json.toString(), type);
+		listCounties = countyService.findByCounty(federalUnit);
 		listCounties.sort(Comparator.naturalOrder());
 	}
 	
