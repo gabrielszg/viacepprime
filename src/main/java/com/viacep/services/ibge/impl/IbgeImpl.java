@@ -7,9 +7,10 @@ import com.viacep.configs.PropertiesReader;
 import com.viacep.models.CountyModel;
 import com.viacep.models.StateModel;
 import com.viacep.services.ibge.Ibge;
+import com.viacep.utils.client.RestClient;
 
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 
@@ -19,10 +20,12 @@ public class IbgeImpl implements Ibge, Serializable {
 	
 	private static final String WEBSERVICE = PropertiesReader.getProperty("webservice.ibge");
 
+	@Inject
+	private RestClient restClient;
+	
 	@Override
 	public List<CountyModel> findByCounty(String federalUnit) {
-		return client()
-				.target(WEBSERVICE)
+		return baseUrl()
 				.path(federalUnit)
 				.path("municipios")
 				.request(MediaType.APPLICATION_JSON)
@@ -31,14 +34,13 @@ public class IbgeImpl implements Ibge, Serializable {
 
 	@Override
 	public List<StateModel> findAllStates() {
-		return client()
-				.target(WEBSERVICE)
+		return baseUrl()
 				.request(MediaType.APPLICATION_JSON)
 				.get(new GenericType<List<StateModel>>() {});
 	}
 	
-	private Client client() {
-		return ClientBuilder.newClient();
+	private WebTarget baseUrl() {
+		return restClient.webTarget(WEBSERVICE);
 	}
 
 }

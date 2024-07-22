@@ -6,9 +6,10 @@ import java.util.List;
 import com.viacep.configs.PropertiesReader;
 import com.viacep.models.ViaCepModel;
 import com.viacep.services.ViaCep;
+import com.viacep.utils.client.RestClient;
 
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 
@@ -19,10 +20,12 @@ public class ViaCepImpl implements ViaCep, Serializable {
 	private static final String WEBSERVICE = PropertiesReader.getProperty("webservice.viacep");
 	private static final String JSON_RESPONSE_FORMAT = "json";
 	
+	@Inject
+	private RestClient restClient;
+	
 	@Override
 	public ViaCepModel findByZipCode(String zipCode) {
-		return client()
-				.target(WEBSERVICE)
+		return baseUrl()
 				.path(zipCode)
 				.path(JSON_RESPONSE_FORMAT)
 				.request(MediaType.APPLICATION_JSON)
@@ -31,8 +34,7 @@ public class ViaCepImpl implements ViaCep, Serializable {
 	
 	@Override
 	public List<ViaCepModel> findByAddress(String federalUnit, String city, String publicPlace) {
-		return client()
-				.target(WEBSERVICE)
+		return baseUrl()
 				.path(federalUnit)
 				.path(city)
 				.path(publicPlace)
@@ -41,8 +43,8 @@ public class ViaCepImpl implements ViaCep, Serializable {
 				.get(new GenericType<List<ViaCepModel>>() {});
 	}
 	
-	private Client client() {
-		return ClientBuilder.newClient();
+	private WebTarget baseUrl() {
+		return restClient.webTarget(WEBSERVICE);
 	}
 
 }
