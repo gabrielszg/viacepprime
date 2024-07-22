@@ -6,7 +6,11 @@ import java.util.Properties;
 
 public class PropertiesReader {
 	
-	public static Properties getProperties() {
+	public static String getProperty(String key) {
+		return getProperties().getProperty(key);
+	}
+	
+	private static Properties getProperties() {
 		InputStream inputStream = getInputStream(); 
 		Properties properties = new Properties();
 		try {

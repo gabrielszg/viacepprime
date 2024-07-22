@@ -16,7 +16,7 @@ public class ViaCepImpl implements ViaCep, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String WEBSERVICE = PropertiesReader.getProperties().getProperty("webservice.viacep");
+	private static final String WEBSERVICE = PropertiesReader.getProperty("webservice.viacep");
 	private static final String JSON_RESPONSE_FORMAT = "json";
 	
 	@Override

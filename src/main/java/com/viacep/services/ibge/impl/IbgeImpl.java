@@ -17,7 +17,7 @@ public class IbgeImpl implements Ibge, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String WEBSERVICE = PropertiesReader.getProperties().getProperty("webservice.ibge");
+	private static final String WEBSERVICE = PropertiesReader.getProperty("webservice.ibge");
 
 	@Override
 	public List<CountyModel> findByCounty(String federalUnit) {
