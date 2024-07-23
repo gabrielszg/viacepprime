@@ -51,7 +51,7 @@
 
 						<p:commandButton 
 							value="Buscar" 
-							action="#{viaCepController.searchZipCode}"
+							actionListener="#{viaCepController.searchZipCode}"
 							icon="pi pi-search" 
 							process="@form"
 							update="frm frm2" />
@@ -114,7 +114,7 @@
 
 						<p:commandButton 
 							value="Buscar" 
-							action="#{viaCepController.searchAddress}"
+							actionListener="#{viaCepController.searchAddress}"
 							icon="pi pi-search" 
 							process="@form"
 							update="form frm3" />
