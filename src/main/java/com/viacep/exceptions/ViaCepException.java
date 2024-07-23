@@ -1,4 +1,4 @@
-package com.viacep.exception;
+package com.viacep.exceptions;
 
 public class ViaCepException extends RuntimeException {
 	

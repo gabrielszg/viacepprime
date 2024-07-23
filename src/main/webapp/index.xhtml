@@ -14,7 +14,9 @@
 	</h:head>
 	<h:body>
 
-		<p:graphicImage library="images" name="banner.png"
+		<p:graphicImage 
+			library="images" 
+			name="banner.png" 
 			styleClass="flex-container" />
 
 		<div class="flex-container">
@@ -23,21 +25,35 @@
 
 					<p:messages closable="true" styleClass="msg" />
 
-					<p:panelGrid columns="3" layout="flex" styleClass="ui-fluid"
+					<p:panelGrid 
+						columns="3" 
+						layout="flex" 
+						styleClass="ui-fluid"
 						style="padding-top: 10px;">
-
-						<p:outputLabel value="Pesquisar Endereço por CEP"
-							style="font-weight: bold; font-style: italic;" />
-						<p:separator style="margin: 0px;" />
-
-						<p:inputMask id="cep" value="#{viaCepController.zipCode}"
-							size="20" required="true" requiredMessage="Digite um CEP!"
-							mask="99999999" autoClear="false" immediate="true"
-							placeholder="Digite um CEP" style="text-align: center;"
+						
+						<p:column styleClass="header-text-color">	
+							<p:outputLabel value="Pesquisar Endereço por CEP" 
+								style="font-weight: bold;" />
+						</p:column>
+						
+						<p:inputMask 
+							id="cep" 
+							value="#{viaCepController.zipCode}"
+							size="20" 
+							required="true" 
+							requiredMessage="Digite um CEP!"
+							mask="99999-999" 
+							autoClear="false" 
+							immediate="true"
+							placeholder="Digite um CEP" 
+							style="text-align: center;"
 							slotChar="" />
 
-						<p:commandButton value="Buscar" icon="pi pi-search"
-							action="#{viaCepController.searchZipCode}" process="@form"
+						<p:commandButton 
+							value="Buscar" 
+							actionListener="#{viaCepController.searchZipCode}"
+							icon="pi pi-search" 
+							process="@form"
 							update="frm frm2" />
 					</p:panelGrid>
 				</h:form>
@@ -48,38 +64,59 @@
 
 					<p:messages closable="true" styleClass="msg" />
 
-					<p:panelGrid columns="2" layout="flex" styleClass="ui-fluid">
-
-						<p:outputLabel value="Pesquisar CEP por Endereço"
-							style="font-weight: bold; font-style: italic;" />
-						<p:separator style="margin: 0px;" />
+					<p:panelGrid 
+						columns="2" 
+						layout="flex" 
+						styleClass="ui-fluid">
+						
+						<p:column styleClass="header-text-color">
+							<p:outputLabel value="Pesquisar CEP por Endereço"
+								style="font-weight: bold;" />
+						</p:column>
 
 						<p:outputLabel value="UF" />
-						<p:selectOneMenu id="estado" value="#{viaCepController.federalUnit}"
-							required="true" requiredMessage="Selecione um estado"
+						<p:selectOneMenu 
+							id="estado" 
+							value="#{viaCepController.federalUnit}"
+							required="true" 
+							requiredMessage="Selecione um estado"
 							filter="true">
 							<f:selectItem itemLabel="Selecione um estado" />
-							<f:selectItems value="#{viaCepController.listStates}"
-								var="siglas" itemValue="#{siglas}" />
-							<p:ajax event="itemSelect"
-								listener="#{viaCepController.searchCity()}" update="cidade" />
+							<f:selectItems 
+								value="#{viaCepController.listStates}"
+								var="siglas" 
+								itemValue="#{siglas}" />
+							<p:ajax 
+								event="itemSelect"
+								listener="#{viaCepController.searchCity}" 
+								update="cidade" />
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Cidade" />
-						<p:selectOneMenu id="cidade" value="#{viaCepController.city}"
-							required="true" requiredMessage="Selecione uma cidade"
+						<p:selectOneMenu 
+							id="cidade" 
+							value="#{viaCepController.city}"
+							required="true" 
+							requiredMessage="Selecione uma cidade"
 							filter="true">
 							<f:selectItem itemLabel="Selecione uma cidade" />
-							<f:selectItems value="#{viaCepController.listCounties}"
-								var="cidade" itemValue="#{cidade.nome}" />
+							<f:selectItems 
+								value="#{viaCepController.listCounties}"
+								var="cidade" 
+								itemValue="#{cidade.nome}" />
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Logradouro" />
-						<p:inputText value="#{viaCepController.publicPlace}"
-							required="true" requiredMessage="Digite um logradouro" />
+						<p:inputText 
+							value="#{viaCepController.publicPlace}"
+							required="true" 
+							requiredMessage="Digite um logradouro" />
 
-						<p:commandButton value="Buscar" icon="pi pi-search"
-							action="#{viaCepController.searchAddress}" process="@form"
+						<p:commandButton 
+							value="Buscar" 
+							actionListener="#{viaCepController.searchAddress}"
+							icon="pi pi-search" 
+							process="@form"
 							update="form frm3" />
 					</p:panelGrid>
 				</h:form>
@@ -87,7 +124,10 @@
 
 			<h:form id="frm2" styleClass="flex-container panel-cep">
 
-				<p:panelGrid columns="2" layout="grid" styleClass="ui-fluid center"
+				<p:panelGrid 
+					columns="2" 
+					layout="grid" 
+					styleClass="ui-fluid center"
 					rendered="#{not empty viaCepController.viaCep.cep}">
 
 					<p:outputLabel value="CEP:" style="font-weight: bold;" />
@@ -127,74 +167,124 @@
 
 		<h:form id="frm3" styleClass="flex-container">
 
-			<p:dataTable id="table" var="e" value="#{viaCepController.listViaCep}"
-				reflow="true" stickyHeader="true" paginator="true"
-				rendered="#{not empty viaCepController.listViaCep}"
-				paginatorAlwaysVisible="false" paginatorPosition="bottom" rows="15"
-				touchable="true" styleClass="p-mt-2">
+			<p:dataTable 
+				id="table" 
+				var="e" 
+				value="#{viaCepController.listViaCep}"
+				reflow="true" 
+				stickyHeader="true" 
+				paginator="true"
+				paginatorAlwaysVisible="false" 
+				paginatorPosition="bottom" 
+				rows="15"
+				touchable="true" 
+				styleClass="p-mt-2" 
+				rendered="#{not empty viaCepController.listViaCep}">
 
 				<f:facet name="header">
-					<p:commandButton value="XLS"
+					<p:commandButton 
+						value="XLS"
 						styleClass="p-mr-2 p-mb-2 ui-button-outlined">
-						<p:dataExporter type="xls" target="table" fileName="enderecos" />
+						<p:dataExporter 
+							type="xls" 
+							target="table" 
+							fileName="enderecos" />
 					</p:commandButton>
 
-					<p:commandButton value="PDF"
+					<p:commandButton 
+						value="PDF"
 						styleClass="p-mr-2 p-mb-2 ui-button-outlined">
-						<p:dataExporter type="pdf" target="table" fileName="enderecos" options="#{viaCepController.pdfOpt}"/>
+						<p:dataExporter 
+							type="pdf" 
+							target="table" 
+							fileName="enderecos" 
+							options="#{viaCepController.pdfOpt}"/>
 					</p:commandButton>
 
-					<p:commandButton value="CSV"
+					<p:commandButton 
+						value="CSV"
 						styleClass="p-mr-2 p-mb-2 ui-button-outlined">
-						<p:dataExporter type="csv" target="table" fileName="enderecos" />
+						<p:dataExporter 
+							type="csv" 
+							target="table" 
+							fileName="enderecos" />
 					</p:commandButton>
 
-					<p:commandButton value="XML"
+					<p:commandButton 
+						value="XML"
 						styleClass="p-mr-2 p-mb-2 ui-button-outlined">
-						<p:dataExporter type="xml" target="table" fileName="enderecos" />
+						<p:dataExporter 
+							type="xml" 
+							target="table" 
+							fileName="enderecos" />
 					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="CEP" width="80" style="text-align: center">
+				<p:column 
+					headerText="CEP" 
+					width="80" 
+					styleClass="table-header-color-green center"
+					style="background-color: #5dd55d !important; text-align: center;">
 					<h:outputText value="#{e.cep}" />
 				</p:column>
 
-				<p:column headerText="Logradouro" width="120"
-					style="text-align: center">
+				<p:column 
+					headerText="Logradouro" 
+					width="120"
+					styleClass="table-header-color-green center">
 					<h:outputText value="#{e.logradouro}" />
 				</p:column>
 
-				<p:column headerText="Complemento" width="100"
-					style="text-align: center">
+				<p:column 
+					headerText="Complemento" 
+					width="100"
+					styleClass="table-header-color-green center">
 					<h:outputText value="#{e.complemento}" />
 				</p:column>
 
-				<p:column headerText="Bairro" width="120" style="text-align: center">
+				<p:column 
+					headerText="Bairro" 
+					width="120" 
+					styleClass="table-header-color-green center">
 					<h:outputText value="#{e.bairro}" />
 				</p:column>
 
-				<p:column headerText="Localidade" width="120"
-					style="text-align: center">
+				<p:column 
+					headerText="Localidade" 
+					width="120"
+					styleClass="table-header-color-green center">
 					<h:outputText value="#{e.localidade}" />
 				</p:column>
 
-				<p:column headerText="UF" width="20" style="text-align: center">
+				<p:column 
+					headerText="UF" 
+					width="20" 
+					styleClass="table-header-color-green center">
 					<h:outputText value="#{e.uf}" />
 				</p:column>
 
-				<p:column headerText="IBGE" width="55" style="text-align: center">
+				<p:column 
+					headerText="IBGE" 
+					width="55" 
+					styleClass="table-header-color-green center">
 					<h:outputText value="#{e.ibge}" />
 				</p:column>
 
-				<p:column headerText="GIA" style="text-align: center">
+				<p:column 
+					headerText="GIA" 
+					styleClass="table-header-color-green center">
 					<h:outputText value="#{e.gia}" />
 				</p:column>
 
-				<p:column headerText="DDD" style="text-align: center">
+				<p:column 
+					headerText="DDD" 
+					styleClass="table-header-color-green center">
 					<h:outputText value="#{e.ddd}" />
 				</p:column>
 
-				<p:column headerText="SIAFI" style="text-align: center">
+				<p:column 
+					headerText="SIAFI" 
+					styleClass="table-header-color-green center">
 					<h:outputText value="#{e.siafi}" />
 				</p:column>
 			</p:dataTable>

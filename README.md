@@ -1,30 +1,21 @@
 # ViaCepPrime
 #### Aplicação Web para consumo da API ViaCep.
 ## Tecnologias utilizadas: 
-- JavaEE 8;
-- JSF 2.2;
-- Primefaces 11;
+- JakartaEE 10;
+- JDK 17;
+- Jakarta Faces(JSF) 4.0;
+- Primefaces 13;
 - Lombok;
-- Tomcat v8.5;
-
-Url:
-```
-http://localhost:8383/ViaCepPrime/
-```
+- WildFly 30.0.0 Final;
 
 ## Como executar o projeto com Docker:
 
 Abra o terminal na raiz do projeto. Execute o comando:
 ```
-docker-compose up -d
-```
-  
-Iniciar container:
-```
-docker start viacepprime_app_1
+docker compose up -d
 ```
 
-Parar container:
+Após o comando finalizar, a aplicação ficará disponível no seguinte endereço:
 ```
-docker stop viacepprime_app_1
+http://localhost:8383/ViaCepPrime/
 ```
