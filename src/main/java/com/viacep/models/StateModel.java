@@ -15,6 +15,7 @@ public class StateModel implements Serializable, Comparable<StateModel> {
 
 	private String id;
 	private String sigla;
+	private String nome;
 
 	@Override
 	public String toString() {

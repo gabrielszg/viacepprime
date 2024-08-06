@@ -84,8 +84,9 @@
 							<f:selectItem itemLabel="Selecione um estado" />
 							<f:selectItems 
 								value="#{viaCepController.listStates}"
-								var="siglas" 
-								itemValue="#{siglas}" />
+								var="estado" 
+								itemValue="#{estado.sigla}"
+								itemLabel="#{estado.nome}" />
 							<p:ajax 
 								event="itemSelect"
 								listener="#{viaCepController.searchCity}" 
